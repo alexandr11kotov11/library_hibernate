@@ -1,0 +1,56 @@
+<%@ page pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Онлайн библиотека</title>
+        <link href="../css/stylemain.css" rel="stylesheet" type="text/css">
+    </head>
+   <body>
+       <%
+           request.setCharacterEncoding("UTF-8");
+           String searchString="";
+           
+if (request.getParameter("search_String")!=null){
+    searchString = request.getParameter("search_String");
+    session.setAttribute("search_String", searchString);
+} else if(session.getAttribute("search_String")!=null){
+    searchString = session.getAttribute("search_String").toString();
+} else{
+    session.setAttribute("search_String", searchString);
+}
+
+
+if (request.getParameter("username")!=null){
+    session.setAttribute("username", request.getParameter("username"));
+}
+
+       %>
+        
+        <div class="container"> 
+          
+            <div class="header">
+         
+                <div class="logo">
+                    <a href="main.jsp"  >  <img src="../images/logotip.png" alt="Логотип" name="logo" /></a>
+                </div>
+                
+                <div class="descr">
+                    <h3> Онлайн библиотека </h3>
+                    </div>
+                
+                <div class="welcome">
+                    <h5>Добро пожаловать, <%=session.getAttribute("username")%>!</h5>
+                    <h6><a href="../index.jsp"> Выход</a></h6>
+                </div>
+                <div class="search_form">
+                    <form name="seach_form" method="POST" action="books.jsp">
+                    <input type="text" name="search_String" value="<%=searchString%>" size="100" />
+                    <input class="search_button"  type="submit" value="Поиск" name="search_button" />
+                    <select name="search_option">
+                    <option>Название</option>
+                    <option>Автор</option>
+                    </select>
+                </form>
+            </div>
+            </div>
